@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:填写映射当前的Mapper接口，所有的增删改查的参数和返回值类型，
+		就可以直接填写缩写，不区分大小写，直接通过方法名去找类型-->
+<mapper namespace="com.zzu.sqlconfig.dao.ExcuteSqlMapper">
+
+    <resultMap id="SqlTable" type="com.zzu.sqlconfig.entity.SqlTable">
+        <id column="sn" property="SN"/>
+        <result column="sql_code" property="SQL_CODE"/>
+        <result column="sql" property="SQL"/>
+        <result column="create_time" property="CREATE_TIME"/>
+        <result column="update_time" property="UPDATE_TIME"/>
+        <result column="params" property="PARAMS"/>
+    </resultMap>
+    <!-- sql:里面可以写入一个共同的sql代码，用于提取重复的代码。
+        要使用该代码的时候就直接使用<include>标签
+        id:为提取的sql代码，取一个id，起标识作用
+         -->
+    <sql id="select">
+		select * from sqltable
+	</sql>
+    <!-- public User findUserById(int id);
+        id:填写在XxxMapper接口中的方法名
+        parameterType:填写参数的类型
+        resultType:填写方法中返回值的类型，不用写全路径，不区分大小写
+    -->
+    <select id="selectSql" parameterType="String" resultType="SqlTable">
+        <!-- include:用于加载提取公共的sql语句，与<sql>标签对应
+               refid:填写<sql>标签中的id属性
+         -->
+        <include refid="select"></include>
+        where sql_code = #{SQL_CODE}
+    </select>
+
+</mapper>
