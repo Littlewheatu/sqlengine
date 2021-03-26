@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface ExcuteSqlService {
 
+    public List<SqlTable> getAllSql();
+
     public List<SqlTable> getSql(String SQL_CODE);
 }
