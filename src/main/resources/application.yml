@@ -11,6 +11,10 @@ spring:
 mybatis:
   mapper-locations: classpath*:com.zzu.sqlconfig/dao/*.xml
   type-aliases-package: com.zzu.sqlconfig.entity
+  configuration:
+    lazy-loading-enabled: false
+    lazy-load-trigger-methods: equals,clone,hashCode
+    aggressive-lazy-loading: false
 
 ### log4j 配置
 logging:

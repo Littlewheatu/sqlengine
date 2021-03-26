@@ -5,6 +5,7 @@ import com.zzu.sqlconfig.entity.SqlTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Service
@@ -14,8 +15,12 @@ public class ExcuteSqlServiceImpl implements ExcuteSqlService{
     private ExcuteSqlMapper esm;
 
     @Override
-    public List<SqlTable> getSql(String SQL_CODE) {
+    public List<SqlTable> getAllSql() {
+        return esm.selectAllSql();
+    }
 
+    @Override
+    public List<SqlTable> getSql(String SQL_CODE) {
         return esm.selectSql(SQL_CODE);
     }
 }

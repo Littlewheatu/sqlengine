@@ -7,5 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface ExcuteSqlMapper {
+
+    List<SqlTable> selectAllSql();
+
     List<SqlTable> selectSql(String SQL_CODE);
 }
