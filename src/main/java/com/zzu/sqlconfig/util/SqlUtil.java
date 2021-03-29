@@ -48,7 +48,7 @@ public class SqlUtil {
     }
 
     /**
-     * 未防止sql注入的方法
+     * 未防止sql注入的方法，停用
      *
      * @param paramsList
      * @param paramsMap
@@ -64,7 +64,7 @@ public class SqlUtil {
     }
 
     /**
-     * 原防止sql注入方法：在所有单引号双引号前加上反斜杠
+     * 原防止sql注入方法：在所有单引号双引号前加上反斜杠，停用
      *
      * @param paramsList
      * @param paramsMap
@@ -85,7 +85,7 @@ public class SqlUtil {
     }
 
     /**
-     * 将参数中所有单引号和双引号前加上反斜线\
+     * 将参数中所有单引号和双引号前加上反斜线\，停用
      *
      * @param paramsList
      * @return
