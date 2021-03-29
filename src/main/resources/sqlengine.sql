@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2021-03-26 21:40:57
+Date: 2021-03-29 10:06:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -69,7 +69,7 @@ CREATE TABLE `sqltable` (
   `update_time` datetime DEFAULT NULL,
   `sql_function` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`sn`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of sqltable
@@ -77,7 +77,12 @@ CREATE TABLE `sqltable` (
 INSERT INTO `sqltable` VALUES ('findUser', 'select * from user where name=\'SIGN_name\' and age=SIGN_age and money=SIGN_money', '1', 'name,age,money', '2021-03-23 10:43:56', '2021-03-23 10:44:00', '查询用户');
 INSERT INTO `sqltable` VALUES ('findSNByN', 'select sn from user where name=\'SIGN_name\';', '2', 'name', '2021-03-23 10:46:10', '2021-03-23 10:46:13', '查询用户');
 INSERT INTO `sqltable` VALUES ('findUser', 'select * from user where name=\'SIGN_name\';', '3', 'name', '2021-03-24 11:04:24', '2021-03-26 18:32:19', '查询用户');
-INSERT INTO `sqltable` VALUES ('serchUser', 'select * from user where name=\'${name}\' and age=${age} and money=${money}', '4', 'name,age,money', '2021-03-26 20:30:37', '2021-03-26 20:30:44', 'serchUser');
+INSERT INTO `sqltable` VALUES ('serchUser', 'select * from user where name=${name} and age=${age} and money=${money};', '4', 'name,age,money', '2021-03-26 20:30:37', '2021-03-26 20:30:44', 'serchUser');
+INSERT INTO `sqltable` VALUES ('safeExcute', 'select * from user where name=${name} and age=${age} and money=${money};', '5', 'name,age,money', '2021-03-26 21:59:31', '2021-03-26 21:59:38', 'safe查询');
+INSERT INTO `sqltable` VALUES ('login', 'select * from admin where username=${username} and password=${password};', '6', 'username,password', '2021-03-27 16:33:15', '2021-03-27 16:33:32', '登录验证');
+INSERT INTO `sqltable` VALUES ('unsafelogin', 'select * from admin where username=\'${username}\' and password=\'${password}\';', '7', 'username,password', '2021-03-27 16:44:11', '2021-03-27 16:44:14', '不安全登录');
+INSERT INTO `sqltable` VALUES ('unsafeuser', 'select * from admin where username=\'${username}\';', '8', 'username', '2021-03-27 16:56:58', '2021-03-27 17:00:34', '查询用户');
+INSERT INTO `sqltable` VALUES ('safeuser', 'select * from admin where username=${username};', '9', 'username', '2021-03-29 09:23:04', '2021-03-29 09:23:08', '仅判断用户名登录能否被注入、');
 
 -- ----------------------------
 -- Table structure for `user`
