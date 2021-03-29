@@ -16,6 +16,9 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/selectSql")
+/**
+ * 不安全的sql查询，停用
+ */
 public class ExcuteSqlController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
