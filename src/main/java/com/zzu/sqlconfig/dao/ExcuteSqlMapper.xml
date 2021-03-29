@@ -20,8 +20,8 @@
                     select="com.zzu.sqlconfig.dao.ParamMapper.selectParams"
                     fetchType="eager">
             <id column="sn" property="SN" jdbcType="INTEGER"/>
-            <result column="sqltable_sn" property="SQLTABLE_SN" jdbcType="VARCHAR" />
-            <result column="rq_rt" property="RQ_RT" jdbcType="INTEGER" />
+            <result column="sqltable_sn" property="SQLTABLE_SN" jdbcType="VARCHAR"/>
+            <result column="rq_rt" property="RQ_RT" jdbcType="INTEGER"/>
             <result column="param_name" property="PARAM_NAME" jdbcType="VARCHAR"/>
             <result column="param_type" property="PARAM_TYPE" jdbcType="VARCHAR"/>
             <result column="param_function" property="PARAM_FUNCTION" jdbcType="VARCHAR"/>

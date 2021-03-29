@@ -7,13 +7,13 @@
 <mapper namespace="com.zzu.sqlconfig.dao.ParamMapper">
 
     <resultMap id="ParamMap" type="com.zzu.sqlconfig.entity.Param">
-            <id column="sn" property="SN" />
-            <result column="sqltable_sn" property="SQLTABLE_SN" />
-            <result column="rq_rt" property="RQ_RT" />
-            <result column="param_name" property="PARAM_NAME" />
-            <result column="param_type" property="PARAM_TYPE" />
-            <result column="param_function" property="PARAM_FUNCTION" />
-            <result column="notes" property="NOTES" />
+        <id column="sn" property="SN"/>
+        <result column="sqltable_sn" property="SQLTABLE_SN"/>
+        <result column="rq_rt" property="RQ_RT"/>
+        <result column="param_name" property="PARAM_NAME"/>
+        <result column="param_type" property="PARAM_TYPE"/>
+        <result column="param_function" property="PARAM_FUNCTION"/>
+        <result column="notes" property="NOTES"/>
     </resultMap>
 
     <sql id="select">

@@ -29,64 +29,84 @@ public class ExcuteSqlController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @RequestMapping(value = "/selectAllSqlTable",method = RequestMethod.GET)
+    @RequestMapping(value = "/selectAllSqlTable", method = RequestMethod.GET)
     public List<SqlTable> selectAllSqlTable() {
         return ess.getAllSql();
     }
 
-    @RequestMapping(value = "/selectSqlTable",method = RequestMethod.GET)
+    @RequestMapping(value = "/selectSqlTable", method = RequestMethod.GET)
     public SqlTable selectSqlTable() {
         List<SqlTable> sqlResult = getSqlResult();
-        String [] paramsList = getParamsList();
+        String[] paramsList = getParamsList();
         SqlUtil sqlUtil = new SqlUtil();
-        SqlTable sqltable = sqlUtil.macheSqlTable(paramsList,sqlResult);
+        SqlTable sqltable = sqlUtil.macheSqlTable(paramsList, sqlResult);
         logger.info("匹配完成-------------");
-        logger.info("匹配后的sqltable是："+sqltable);
+        logger.info("匹配后的sqltable是：" + sqltable);
         return sqltable;
     }
 
-    @RequestMapping(value = "/excuteSql",method = RequestMethod.GET)
-    public List<Map<String, Object>> excuteSql(HttpServletRequest httpServletRequest){
+    @RequestMapping(value = "/excuteSql", method = RequestMethod.GET)
+    public List<Map<String, Object>> excuteSql(HttpServletRequest httpServletRequest) {
         List<SqlTable> sqlResult = getSqlResult();
-        String [] paramsList = getParamsList();
+        String[] paramsList = getParamsList();
         SqlUtil sqlUtil = new SqlUtil();
-        String sqlOrigin = sqlUtil.macheSql(paramsList,sqlResult);
+        String sqlOrigin = sqlUtil.macheSql(paramsList, sqlResult);
         logger.info("匹配完成-------------");
-        logger.info("匹配后的sql是："+sqlOrigin);
+        logger.info("匹配后的sql是：" + sqlOrigin);
         List<Map<String, Object>> result = new LinkedList<>();
-        if(sqlOrigin!=null){
+        if (sqlOrigin != null) {
             //获取参数map
-            Map<String,String[]> paramsMap = new HashMap<>(httpServletRequest.getParameterMap());
+            Map<String, String[]> paramsMap = new HashMap<>(httpServletRequest.getParameterMap());
             //组装sql
             logger.info("开始组装-------------");
-            String sqlLater = sqlUtil.produceSql(paramsList,paramsMap,sqlOrigin);
-            logger.info("组装后sql为："+sqlLater);
+            String sqlLater = sqlUtil.produceSql(paramsList, paramsMap, sqlOrigin);
+            logger.info("组装后sql为：" + sqlLater);
             //执行sql
             result = jdbcTemplate.queryForList(sqlLater);
         }
         return result;
     }
 
+    @RequestMapping(value = "/unSafeExcuteSql", method = RequestMethod.GET)
+    public List<Map<String, Object>> excuteUnSafeSql(HttpServletRequest httpServletRequest) {
+        List<SqlTable> sqlResult = getSqlResult();
+        String[] paramsList = getParamsList();
+        SqlUtil sqlUtil = new SqlUtil();
+        String sqlOrigin = sqlUtil.macheSql(paramsList, sqlResult);
+        logger.info("匹配后的sql是：" + sqlOrigin);
+        List<Map<String, Object>> result = new LinkedList<>();
+        if (sqlOrigin != null) {
+            //获取参数map
+            Map<String, String[]> paramsMap = new HashMap<>(httpServletRequest.getParameterMap());
+            //组装sql
+            logger.info("开始组装-------------");
+            String sqlLater = sqlUtil.unSafeProduceSql(paramsList, paramsMap, sqlOrigin);
+            logger.info("组装后sql为：" + sqlLater);
+            //执行sql
+            result = jdbcTemplate.queryForList(sqlLater);
+        }
+        return result;
+    }
 
-    private List<SqlTable> getSqlResult(){
+    private List<SqlTable> getSqlResult() {
         String SQL_CODE = httpServletRequest.getParameter("sql_code");
         //查询该SQL_CODE下的sql列表
         return ess.getSql(SQL_CODE);
     }
 
-    private String [] getParamsList(){
-        Enumeration<String> paramsNames= httpServletRequest.getParameterNames();
+    private String[] getParamsList() {
+        Enumeration<String> paramsNames = httpServletRequest.getParameterNames();
         StringBuffer paramListStringBuffer = new StringBuffer();
         logger.info("开始匹配-------------");
-        while(paramsNames.hasMoreElements()){
+        while (paramsNames.hasMoreElements()) {
             String arg = paramsNames.nextElement();
-            if(arg.equals("sql_code")){
+            if (arg.equals("sql_code")) {
                 continue;
             }
-            paramListStringBuffer.append(arg+",");
+            paramListStringBuffer.append(arg + ",");
         }
         String paramList = paramListStringBuffer.toString();
-        if(paramList!=null){
+        if (paramList != null) {
             paramList = paramList.substring(0, paramList.length() - 1);
         }
         return paramList.split(",");
