@@ -5,11 +5,10 @@ import com.zzu.sqlconfig.entity.SqlTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 @Service
-public class ExcuteSqlServiceImpl implements ExcuteSqlService{
+public class ExcuteSqlServiceImpl implements ExcuteSqlService {
 
     @Autowired
     private ExcuteSqlMapper esm;
