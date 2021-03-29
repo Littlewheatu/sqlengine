@@ -113,9 +113,11 @@ public class ExcuteSqlServiceImpl implements ExcuteSqlService {
             paramListStringBuffer.append(arg + ",");
         }
         String paramList = paramListStringBuffer.toString();
-        if (paramList != null) {
+        if (paramList != null && paramList.length() != 0) {
             paramList = paramList.substring(0, paramList.length() - 1);
+            return paramList.split(",");
+        } else {
+            return new String[0];
         }
-        return paramList.split(",");
     }
 }

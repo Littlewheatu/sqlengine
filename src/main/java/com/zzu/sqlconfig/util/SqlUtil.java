@@ -5,7 +5,6 @@ import com.zzu.sqlconfig.entity.SqlTable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class SqlUtil {
 
@@ -19,10 +18,16 @@ public class SqlUtil {
     public String macheSql(String[] paramsList, List<SqlTable> sqlTables) {
         Arrays.sort(paramsList);
         for (int i = 0; i < sqlTables.size(); i++) {
-            String[] sqlParamList = sqlTables.get(i).getPARAMS().split(",");
-            Arrays.sort(sqlParamList);
-            if (Arrays.equals(paramsList, sqlParamList)) {
-                return sqlTables.get(i).getSQL();
+            if(sqlTables.get(i).getPARAMS() != null ){
+                String[] sqlParamList = sqlTables.get(i).getPARAMS().split(",");
+                Arrays.sort(sqlParamList);
+                if (Arrays.equals(paramsList, sqlParamList)) {
+                    return sqlTables.get(i).getSQL();
+                }
+            } else{
+                if (paramsList.length == 0 || paramsList == null) {
+                    return sqlTables.get(i).getSQL();
+                }
             }
         }
         return null;
@@ -38,63 +43,19 @@ public class SqlUtil {
     public SqlTable macheSqlTable(String[] paramsList, List<SqlTable> sqlTables) {
         Arrays.sort(paramsList);
         for (int i = 0; i < sqlTables.size(); i++) {
-            String[] sqlParamList = sqlTables.get(i).getPARAMS().split(",");
-            Arrays.sort(sqlParamList);
-            if (Arrays.equals(paramsList, sqlParamList)) {
-                return sqlTables.get(i);
+            if(sqlTables.get(i).getPARAMS() != null ){
+                String[] sqlParamList = sqlTables.get(i).getPARAMS().split(",");
+                Arrays.sort(sqlParamList);
+                if (Arrays.equals(paramsList, sqlParamList)) {
+                    return sqlTables.get(i);
+                }
+            } else{
+                if (paramsList.length == 0 || paramsList == null) {
+                    return sqlTables.get(i);
+                }
             }
         }
         return null;
-    }
-
-    /**
-     * 未防止sql注入的方法，停用
-     *
-     * @param paramsList
-     * @param paramsMap
-     * @param sql
-     * @return
-     */
-    public String unSafeProduceSql(String[] paramsList, Map<String, String[]> paramsMap, String sql) {
-        //组装sql
-        for (int i = 0; i < paramsList.length; i++) {
-            sql = sql.replaceAll("\\$\\{" + paramsList[i] + "\\}", paramsMap.get(paramsList[i])[0]);
-        }
-        return sql;
-    }
-
-    /**
-     * 原防止sql注入方法：在所有单引号双引号前加上反斜杠，停用
-     *
-     * @param paramsList
-     * @param paramsMap
-     * @param sql
-     * @return
-     */
-    public String produceSql(String[] paramsList, Map<String, String[]> paramsMap, String sql) {
-        //防止sql注入:将参数中所有单引号和双引号前加上反斜线\，达到防止sql注入的情况
-        for (Map.Entry<String, String[]> entry : paramsMap.entrySet()) {
-            String changedValue = entry.getValue()[0].replaceAll("[\'\"]", "\\\\$0");
-            paramsMap.put(entry.getKey(), new String[]{changedValue});
-        }
-        //组装sql
-        for (int i = 0; i < paramsList.length; i++) {
-            sql = sql.replaceAll("\\$\\{" + paramsList[i] + "\\}", "\\" + paramsMap.get(paramsList[i])[0]);
-        }
-        return sql;
-    }
-
-    /**
-     * 将参数中所有单引号和双引号前加上反斜线\，停用
-     *
-     * @param paramsList
-     * @return
-     */
-    public String[] replaceSingleQuotes(String[] paramsList) {
-        for (int i = 0; i < paramsList.length; i++) {
-            paramsList[i] = paramsList[i].replaceAll("[\'\"]", "\\\\$0");
-        }
-        return paramsList;
     }
 
     /**
