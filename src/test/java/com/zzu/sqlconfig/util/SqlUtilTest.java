@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class SqlUtilTest {
 
+    /*
     @Test
     public void testProduceSql(){
         String [] paramList = new String[]{"zhang\"dsan'","123's42s452s","'hahahh\"aha"};
@@ -48,4 +49,6 @@ public class SqlUtilTest {
             System.out.println("参数："+result[i]);
         }
     }
+
+     */
 }
