@@ -8,5 +8,5 @@ import java.util.List;
 @Mapper
 public interface ParamMapper {
 
-    public List<Param> selectParams();
+    List<Param> selectParams();
 }
