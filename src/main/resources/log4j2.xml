@@ -5,7 +5,7 @@
             <!-- 指定日志的输出格式 -->
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p]  -  %l  -  %m%n"/>
         </Console>
-        <RollingFile name="RollingFileInfo" fileName="G:/springLog/info.log" filePattern="G:/springLog/$${date:yyyy-MM}/info-%d{yyyy-MM-dd} -%i.log">
+        <RollingFile name="RollingFileInfo" fileName="D:/sql/sqlconfig/info.log" filePattern="D:/sql/sqlconfig/$${date:yyyy-MM}/info-%d{yyyy-MM-dd} -%i.log">
             <Filters>
                 <ThresholdFilter level="INFO"/>
             </Filters>
