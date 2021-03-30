@@ -2,12 +2,15 @@ package com.zzu.sqlconfig.service;
 
 import com.zzu.sqlconfig.dao.ExcuteSqlMapper;
 import com.zzu.sqlconfig.entity.SqlTable;
+import com.zzu.sqlconfig.entity.VO.SqlTableVO;
 import com.zzu.sqlconfig.util.SqlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +87,24 @@ public class ExcuteSqlServiceImpl implements ExcuteSqlService {
         }
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public Integer addSqlTable(SqlTableVO sqlTableVO) {
+        SqlTable sqlTable = new SqlTable();
+        //将sqlTableVO的属性复制到sqlTable
+       sqlTable.setSQL_CODE(sqlTableVO.getSqlCode());
+       sqlTable.setSQL(sqlTableVO.getSql());
+       sqlTable.setPARAMS(sqlTableVO.getParams());
+       sqlTable.setSQL_FUNCTION(sqlTableVO.getSqlFunction());
+       sqlTable.setSQL(sqlTableVO.getSql());
+       sqlTable.setCREATE_TIME(new Date());
+       sqlTable.setUPDATE_TIME(sqlTable.getCREATE_TIME());
+       //向数据库添加数据
+        logger.info("sql_code的值：{}",sqlTable.getSQL_CODE());
+        logger.info("params的值：{}",sqlTable.getPARAMS());
+        return esm.insertSqlTable(sqlTable);
     }
 
     /**

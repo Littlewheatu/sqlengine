@@ -75,4 +75,11 @@
         where s.sql_code = #{SQL_CODE}
     </select>
 
+    <insert id="insertSqlTable" parameterType="com.zzu.sqlconfig.entity.SqlTable" >
+        insert into sqltable(sql_code,params,sql_function,create_time,update_time)
+        values(#{SQL_CODE},#{PARAMS},#{SQL_FUNCTION},#{CREATE_TIME},#{UPDATE_TIME})
+    </insert>
+
+
+
 </mapper>
