@@ -8,11 +8,12 @@
     <resultMap id="SqlTable" type="com.zzu.sqlconfig.entity.SqlTable">
         <id column="sn" property="SN" jdbcType="INTEGER"/>
         <result column="sql_code" property="SQL_CODE" jdbcType="VARCHAR"/>
-        <result column="sql" property="SQL" jdbcType="VARCHAR"/>
+        <result column="sql_content" property="SQL" jdbcType="VARCHAR"/>
         <result column="sql_function" property="SQL_FUNCTION" jdbcType="VARCHAR"/>
         <result column="create_time" property="CREATE_TIME" jdbcType="VARCHAR"/>
         <result column="update_time" property="UPDATE_TIME" jdbcType="VARCHAR"/>
         <result column="params" property="PARAMS" jdbcType="VARCHAR"/>
+        <result column="data_source" property="dataSource" jdbcType="VARCHAR"/>
         <collection property="PARAMS_LIST"
                     javaType="java.util.List"
                     ofType="com.zzu.sqlconfig.entity.Param"
@@ -39,7 +40,7 @@
 
     <sql id="sqlTableAndParam">
         s.sn,
-        s.sql,
+        s.sql_content,
         s.sql_code,
         s.sql_function,
         s.create_time,

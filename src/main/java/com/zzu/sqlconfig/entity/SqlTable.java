@@ -24,6 +24,8 @@ public class SqlTable {
 
     private List<Param> PARAMS_LIST;
 
+    private String dataSource;
+
     public int getSN() {
         return SN;
     }
@@ -88,6 +90,14 @@ public class SqlTable {
         this.PARAMS_LIST = PARAMS_LIST;
     }
 
+    public String getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public String toString() {
         return "SqlTable{" +
@@ -99,6 +109,7 @@ public class SqlTable {
                 ", CREATE_TIME=" + CREATE_TIME +
                 ", UPDATE_TIME=" + UPDATE_TIME +
                 ", PARAMS_LIST=" + PARAMS_LIST +
+                ", dataSource='" + dataSource + '\'' +
                 '}';
     }
 }
