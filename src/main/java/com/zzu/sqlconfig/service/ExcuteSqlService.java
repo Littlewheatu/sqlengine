@@ -1,6 +1,7 @@
 package com.zzu.sqlconfig.service;
 
 import com.zzu.sqlconfig.entity.SqlTable;
+import com.zzu.sqlconfig.entity.VO.SqlTableVO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -15,4 +16,11 @@ public interface ExcuteSqlService {
     SqlTable getSqlTableByParams(HttpServletRequest httpServletRequest);
 
     List<Map<String, Object>> getResultList(HttpServletRequest httpServletRequest);
+
+    /**
+     * 添加一条sqlTable
+     *
+     * @param sqlTableVO
+     */
+    Integer addSqlTable(SqlTableVO sqlTableVO);
 }

@@ -1,13 +1,12 @@
 package com.zzu.sqlconfig.controller;
 
 import com.zzu.sqlconfig.entity.SqlTable;
+import com.zzu.sqlconfig.entity.VO.SqlTableVO;
 import com.zzu.sqlconfig.service.ExcuteSqlService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -56,6 +55,21 @@ public class SafeExcuteSqlController {
     @RequestMapping(value = "/excuteSql", method = RequestMethod.GET)
     public List<Map<String, Object>> excuteSql() {
         return ess.getResultList(httpServletRequest);
+    }
+
+
+    /**
+     * 添加一条sqlTable
+     *
+     * @param sqlTableVO
+     */
+    @RequestMapping(value = "/addSqlTable",method = RequestMethod.POST)
+    @ResponseBody
+    public Integer addSqlTable(@RequestBody SqlTableVO sqlTableVO){
+        Integer id = ess.addSqlTable(sqlTableVO);
+        logger.info("插入结果：{}",id);
+        return id;
+        
     }
 
 }
