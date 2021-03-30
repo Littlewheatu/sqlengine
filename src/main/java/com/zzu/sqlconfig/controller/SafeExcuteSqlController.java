@@ -69,6 +69,7 @@ public class SafeExcuteSqlController {
         Integer id = ess.addSqlTable(sqlTableVO);
         logger.info("插入结果：{}",id);
         return id;
+        
     }
 
 }
